@@ -112,7 +112,7 @@ public class Task1_Functional {
 		parser.add("1output",Parser.STRING);
 	}
 	@Test
-	public void invalid_option_name_test_2() {
+	public void valid_option_name_test_2() {
 		parser.add("_output","o",Parser.STRING);
 	}
 	@Test (expected = RuntimeException.class)
