@@ -127,6 +127,14 @@ public class Task1_Functional {
 	public void invalid_name_with_special_characters() {
 		parser.add("output","thisIS12$$%$invalid",Parser.STRING);
 	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters_optionname() {
+		parser.add("thisIS12$$%$invalid","output",Parser.STRING);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters_optionname_add() {
+		parser.add("thisIS12$$%$invalid",Parser.STRING);
+	}
 	/* Option names are case sensitive */
 	@Test
 	public void case_sensitive_option_names_test() {
