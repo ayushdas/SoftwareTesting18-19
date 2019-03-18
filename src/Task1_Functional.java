@@ -123,6 +123,10 @@ public class Task1_Functional {
 	public void valid_shortcut_name_test_2() {
 		parser.add("output","_oo",Parser.STRING);
 	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters() {
+		parser.add("output","thisIS12$$%$invalid",Parser.STRING);
+	}
 	/* Option names are case sensitive */
 	@Test
 	public void case_sensitive_option_names_test() {
