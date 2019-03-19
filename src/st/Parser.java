@@ -1,12 +1,15 @@
 package st;
 
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 
 public class Parser {
 	public static final int INTEGER = 1;
 	public static final int BOOLEAN = 2;
 	public static final int STRING = 3;
 	public static final int CHAR = 4;
+	public static final int INTEGER_LIST = 5;
 	
 	private OptionMap optionMap;
 	
@@ -21,7 +24,11 @@ public class Parser {
 	public void add(String option_name, int value_type) {
 		optionMap.store(option_name, "", value_type);
 	}
-
+	public List<Integer> getIntegerList(String option) {
+		List<Integer> result = Arrays.asList(-1);
+		return result;
+	}
+	
 	public int getInteger(String option) {
 		String value = getString(option);
 		int type = getType(option);
