@@ -1,15 +1,15 @@
 import static org.junit.Assert.*;
 
-
-
+import java.math.BigInteger;
 
 import org.junit.Test;
-
+import java.math.BigInteger;
 
 import st.OptionMap;
 import st.Parser;
 
 import org.junit.Before;
+
 
 public class Task2_Coverage {
 
@@ -461,5 +461,17 @@ public class Task2_Coverage {
 	@Test (expected = RuntimeException.class)
 	public void invalid_type_2() {
 		parser.add("output","o",-1);
+	}
+	@Test (expected = RuntimeException.class)
+	public void null_name() {
+		parser.add(null,"o",Parser.STRING);
+	}
+// Passing a really Large Integer Value
+	@Test
+	public void Big_Integer_Test() {
+	parser.add("o", "output", Parser.INTEGER);	
+	parser.parse("--o=1000000000000000000000000000000000000000000000000000");
+	BigInteger b = new BigInteger("1000000000000000000000000000000000000000000000000000");
+	assertEquals(parser.getInteger("o"),b.intValue());
 	}
 }
