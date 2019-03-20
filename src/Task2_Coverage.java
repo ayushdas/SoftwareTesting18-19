@@ -1,20 +1,21 @@
 import static org.junit.Assert.*;
 
-import javax.swing.text.html.Option;
+
+
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
 
 import st.OptionMap;
 import st.Parser;
 
 import org.junit.Before;
-import org.junit.Rule;
 
 public class Task2_Coverage {
 
 	private Parser parser;
 	private OptionMap map;
+	
 
 	@Before
 	public void set_up() {
@@ -56,7 +57,12 @@ public class Task2_Coverage {
 		parser.add("output", "o", Parser.INTEGER);
 		parser.parse("--output= 100!");
 		assertEquals(parser.getInteger("output"), 0);
-
+		
+		Integer bigInt = Integer.MAX_VALUE;
+		parser.add("output",Parser.INTEGER);
+		parser.parse("--output = " + bigInt);
+		assertEquals(parser.getInteger("output"),0);
+	
 		// test boolean
 		parser.add("output", "o", Parser.BOOLEAN);
 		parser.parse("--output=true");
@@ -79,12 +85,20 @@ public class Task2_Coverage {
 		parser.parse("-- output = ");
 		assertEquals(parser.getInteger("output"), 0);
 		
+	
+		parser.add("output",Parser.STRING);
+		parser.parse("--output=2");
+		assertEquals(parser.getInteger("output"),2);
+	
 
 		// test char
 		parser.add("output", "o", Parser.CHAR);
 		parser.parse("--output=o");
 		assertEquals(parser.getInteger("output"), 111);
 			
+		// test default
+		parser.add("output" , "o", 5);
+		assertEquals(parser.getInteger("o"), 0);
 	}
 
 	/*
@@ -97,26 +111,43 @@ public class Task2_Coverage {
 		assertEquals(parser.parse(""), -2);
 		assertEquals(parser.parse("--output =output"), 0);
 
-		parser.add("output2", "o2", Parser.STRING);
-		assertEquals(parser.parse("--output2=_"), 0);
+		parser.add("output", "o", Parser.STRING);
+		assertEquals(parser.parse("--output=_"), 0);
 		
 		// test command that has wrong type
-		parser.add("output3", "O", Parser.CHAR);
+		parser.add("output", "O", Parser.CHAR);
 		assertEquals(parser.parse("-O"), -3);
-		assertEquals(parser.parse("output3= abc-"), -3);
+		assertEquals(parser.parse("output= abc-"), -3);
 
 		// test command with space
-		parser.add("output4", "o", Parser.CHAR);
-		assertEquals(parser.parse("--output4= output  "), -3);
+		parser.add("output", "o", Parser.CHAR);
+		assertEquals(parser.parse("--output= output  "), -3);
 
 		// test command without - 
-		parser.add("output5", "o", Parser.CHAR);
+		parser.add("output", "o", Parser.CHAR);
 		assertEquals(parser.parse("output"), -3);
 		
-		// test input that's not alphabet, number, or _
-		parser.add("output6", Parser.CHAR);
-		assertEquals(parser.parse("--output6= &&$$$"), -3);
 		
+		// test command that has only space
+		parser.add("output", Parser.INTEGER);
+		assertEquals(parser.parse("--output=      "), -3);
+		
+		//test faulty command
+		parser.add("output", Parser.STRING);
+		assertEquals(parser.parse("--$$$= output" ), -3);
+		
+		
+		parser.add("output_",Parser.STRING);
+		assertEquals(parser.parse("--output_= output"), -3);
+		
+
+		parser.add("output_",Parser.STRING);
+		assertEquals(parser.parse("--output_ "), -3);
+		
+		parser.add("output","O", Parser.BOOLEAN);
+		assertEquals(parser.parse("--output -0"),-3);
+	
+	
 
 	}
 

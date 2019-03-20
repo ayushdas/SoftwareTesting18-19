@@ -12,6 +12,8 @@ public class OptionMap {
 	
     private ArrayList<Option> options;
     private HashSet<Option> uniqueOptions;
+   
+    
     
     public OptionMap() {
     	options = new ArrayList<Option>();
