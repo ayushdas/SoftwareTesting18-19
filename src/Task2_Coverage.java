@@ -96,9 +96,6 @@ public class Task2_Coverage {
 		parser.parse("--output=o");
 		assertEquals(parser.getInteger("output"), 111);
 			
-		// test default
-		parser.add("output" , "o", 5);
-		assertEquals(parser.getInteger("o"), 0);
 	}
 
 	/*
