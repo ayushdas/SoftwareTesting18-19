@@ -1,6 +1,7 @@
 package st;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,10 +26,22 @@ public class Parser {
 		optionMap.store(option_name, "", value_type);
 	}
 	public List<Integer> getIntegerList(String option) {
-		List<Integer> result = Arrays.asList(-1);
+		List<Integer> result = new ArrayList<>();
+		String value = getString(option);
+		if(value=="") {
+			return result ;
+		}
+		String[] array = value.split("[,]+");
+		for(String c:array) {
+				int a = Integer.parseInt(c);
+				result.add(a);
+		}
 		return result;
-	}
 	
+	}
+		
+		
+
 	public int getInteger(String option) {
 		String value = getString(option);
 		int type = getType(option);
