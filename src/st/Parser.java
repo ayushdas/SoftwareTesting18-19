@@ -9,7 +9,7 @@ public class Parser {
 	public static final int BOOLEAN = 2;
 	public static final int STRING = 3;
 	public static final int CHAR = 4;
-	public static final int INTEGER_LIST = 5;
+
 	
 	private OptionMap optionMap;
 	

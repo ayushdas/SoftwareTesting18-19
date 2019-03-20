@@ -8,7 +8,6 @@ public class OptionMap {
 	public static final int BOOLEAN = 2;
 	public static final int STRING = 3;
 	public static final int CHAR = 4;
-	public static final int INTEGER_LIST = 5;
 	
     private ArrayList<Option> options;
     private HashSet<Option> uniqueOptions;
@@ -97,7 +96,7 @@ public class OptionMap {
     	    	}
     		}
     	}
-    	if (o.getType() < INTEGER || o.getType() > INTEGER_LIST) {
+    	if (o.getType() < INTEGER || o.getType() > CHAR) {
     		return false;
     	}
     	return true;

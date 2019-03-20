@@ -464,7 +464,7 @@ public class Task2_Coverage {
 	}
 	@Test (expected = RuntimeException.class)
 	public void null_name() {
-		parser.add(null,"o",Parser.STRING);
+		parser.add("output",null,Parser.STRING);
 	}
 // Passing a really Large Integer Value
 	@Test
