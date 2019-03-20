@@ -423,5 +423,43 @@ public class Task2_Coverage {
 		assertEquals(parser.getInteger("output2"), 123);
 		assertEquals(parser.getString("output3"), "World");
 	}
-
+// Invalid Option Names
+	@Test
+	public void valid_shortcut_name_test_2() {
+		parser.add("output","_oo",Parser.STRING);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters() {
+		parser.add("output","thisIS12$$%$invalid",Parser.STRING);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters_optionname() {
+		parser.add("thisIS12$$%$invalid","output",Parser.STRING);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters_optionname_add() {
+		parser.add("thisIS12$$%$invalid",Parser.STRING);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_special_characters_optionname_add_2() {
+		parser.add("",Parser.STRING);
+	}
+// passing null values
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_null() {
+		parser.add("output",null,Parser.STRING);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_name_with_null_2() {
+		parser.add(null,"output",Parser.STRING);
+	}
+// Invalid Types
+	@Test (expected = RuntimeException.class)
+	public void invalid_type() {
+		parser.add("output","o",10);
+	}
+	@Test (expected = RuntimeException.class)
+	public void invalid_type_2() {
+		parser.add("output","o",-1);
+	}
 }
