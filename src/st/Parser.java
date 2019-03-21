@@ -1,6 +1,7 @@
 package st;
 
 import java.math.BigInteger;
+import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,18 +28,30 @@ public class Parser {
 	}
 	public List<Integer> getIntegerList(String option) {
 		List<Integer> result = new ArrayList<>();
+		
 		String value = getString(option);
+		
+		
 		if(value=="") {
 			return result ;
 		}
-		String[] array = value.split("[,]+");
-		for(String c:array) {
-				int a = Integer.parseInt(c);
+		
+		String[] array = value.split("[^\\d -]"); //split string by non-digit except -
+		
+		for(int i = 0; i< array.length; i++) {
+			if(array[i].equals("-")) {
+					System.out.println("stop");
+					
+				
+			}
+				System.out.println(array[i]);
+				int a = Integer.parseInt(array[i]);
 				result.add(a);
+				
 		}
 		return result;
 	
-	}
+}
 		
 		
 
