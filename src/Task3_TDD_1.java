@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.List;
 
-public class Task3_TDD_N {
+public class Task3_TDD_1 {
 	private Parser parser;
 	@Before
 	public void set_up() {
