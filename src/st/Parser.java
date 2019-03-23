@@ -40,22 +40,23 @@ public class Parser {
 
 		String clean = value.replaceAll("[^\\d-]", " ");
 		String[] array = clean.split(" "); // split string by non-digit except -
-
+		
+		
 		for (int i = 0; i < array.length; i++) {
 			if (array[i].contains("-")) {
 				if(array[i].charAt(array[i].length()-1) == '-') {
 					return Collections.emptyList();
 				}
-			 //-1-3
-				char[] charArray = array[i].toCharArray();
-				
+			 //3--1
+				char []charArray = array[i].toCharArray();
 				int j = 0;
-				while (j < array.length) {
-					int temp = Character.getNumericValue(charArray[j]);
-					System.out.println("temp" + temp);
+				while (j < charArray.length-2) {
+					int temp = Character.getNumericValue(charArray[j]); //temp = 3
+					System.out.println("temp: " + temp);
 					
-					int temp2 = Character.getNumericValue(charArray[j + 2]);
-
+					int temp2 = Character.getNumericValue(charArray[j + 2]); //temp2 = -1
+					System.out.println("temp2: " + temp2);
+					
 					if (charArray[j] == '-' && j == 0 && Character.isDigit(charArray[j + 1])) {
 						temp = -(Character.getNumericValue(charArray[j + 1]));
 						System.out.println("temp in loop :" + temp);
@@ -68,30 +69,45 @@ public class Parser {
 					if ((charArray[j] == '-') && (charArray[j+1] != '-')) {
 						temp2= (Character.getNumericValue(charArray[j+1]));
 					}
-					
+					if ((charArray[j+1] == '-') && (charArray[j+2] == '-')) {
+						System.out.println("j: " + j);
+						temp2= -(Character.getNumericValue(charArray[j+3]));
+						System.out.println("temp2 should be generated here: " + temp2);
+					}
+					if((j>1) && (j<charArray.length-1) &&(Character.isDigit(charArray[j])) && 
+							(Character.isDigit(charArray[j+2])) && (Character.isDigit(charArray[j-2])) && 
+								(charArray[j+1]=='-') && (charArray[j-1]=='-')) {
+						System.out.println("run here");
+						return Collections.emptyList();
+					}
 					int low = temp;
 					int high = temp2;
 
 					if (low < high) {
-						while (low <= high) { // 1<3
-							result.add(low); // add 1
+						while (low <= high) { // 
+							result.add(low); // add 1,2,3
+							System.out.println("low should be 1,2 :" + low);
 							low++;
 						}
 						j = j + 2;
-					} else if (low >= high) { // 3-1
+						System.out.println("j should be 2 " + j );
+					} else if (low >= high) { 
 						while (high <= low) {
 							result.add(high);
 							high++;
 
 						}
-						j = j + 2;
+						j = j + 2; //j=2
 					}
+					
 				}
-			} else {
+			}
+				else {
 				int a = Integer.parseInt(array[i]);
 				result.add(a);
 
 			}
+	
 		}
 		return result;
 	}
