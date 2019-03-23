@@ -36,8 +36,8 @@ public class Parser {
 		if (value == "") {
 			return result;
 		}
-	
-		String clean = value.replaceAll("[^\\d-]", " " );
+
+		String clean = value.replaceAll("[^\\d-]", " ");
 		String[] array = clean.split(" "); // split string by non-digit except -
 		System.out.print("original array length : " + array.length);
 
@@ -45,31 +45,42 @@ public class Parser {
 			if (array[i].contains("-")) {
 				System.out.print("run here");
 				char[] charArray = array[i].toCharArray();
-				System.out.print("charArray length =" + charArray.length);
-				int low = Character.getNumericValue(charArray[0]); // 1
-				int high = Character.getNumericValue(charArray[2]);// 3
+				// 1-3
+				int j = 0;
+				while (j < array.length) {
+					int temp = Character.getNumericValue(charArray[j]);
+					int temp2 = Character.getNumericValue(charArray[j + 2]);
 
-				if (low < high) {
-					while (low <= high) { // 1<3
-						result.add(low); // add 1
-						low++;
+					if (charArray[j] == '-' && j == 0 && Character.isDigit(charArray[j + 1])) {
+						temp = -(Character.getNumericValue(charArray[j + 1]));
+						j = j + 2;
+					}
+					if ((charArray[j] == '-' && charArray[j + 1] == '-')) {
+						temp2 = -(Character.getNumericValue(charArray[j + 2]));
+					}
+					int low = temp;
+					int high = temp2;
+
+					if (low < high) {
+						while (low <= high) { // 1<3
+							result.add(low); // add 1
+							low++;
+						}
+						j = j + 2;
+					} else if (low >= high) { // 3-1
+						while (high <= low) {
+							result.add(high);
+							high++;
+
+						}
+						j = j + 2;
 					}
 				}
-				else if (low>=high) { // 3-1
-					while(high<=low) {
-						result.add(high);
-						high++;
-					}
-				}
-
-			}
-
-			else {
+			} else {
 				int a = Integer.parseInt(array[i]);
 				result.add(a);
 
 			}
-
 		}
 		return result;
 	}
