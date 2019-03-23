@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -39,25 +40,35 @@ public class Parser {
 
 		String clean = value.replaceAll("[^\\d-]", " ");
 		String[] array = clean.split(" "); // split string by non-digit except -
-		System.out.print("original array length : " + array.length);
 
 		for (int i = 0; i < array.length; i++) {
 			if (array[i].contains("-")) {
-				System.out.print("run here");
+				if(array[i].charAt(array[i].length()-1) == '-') {
+					return Collections.emptyList();
+				}
+			 //-1-3
 				char[] charArray = array[i].toCharArray();
-				// 1-3
+				
 				int j = 0;
 				while (j < array.length) {
 					int temp = Character.getNumericValue(charArray[j]);
+					System.out.println("temp" + temp);
+					
 					int temp2 = Character.getNumericValue(charArray[j + 2]);
 
 					if (charArray[j] == '-' && j == 0 && Character.isDigit(charArray[j + 1])) {
 						temp = -(Character.getNumericValue(charArray[j + 1]));
+						System.out.println("temp in loop :" + temp);
+						
 						j = j + 2;
 					}
 					if ((charArray[j] == '-' && charArray[j + 1] == '-')) {
 						temp2 = -(Character.getNumericValue(charArray[j + 2]));
 					}
+					if ((charArray[j] == '-') && (charArray[j+1] != '-')) {
+						temp2= (Character.getNumericValue(charArray[j+1]));
+					}
+					
 					int low = temp;
 					int high = temp2;
 

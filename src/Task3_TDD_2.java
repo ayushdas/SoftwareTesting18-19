@@ -120,47 +120,47 @@ dots, spaces etc */
 		result = parser.getIntegerList("o1");
 		assertEquals(list1, result);
 	}
-//	
-//	@Test // Checking the range (-) operator with negative and positive numbers
-//	public void check_range_negative_numbers_test_2() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1-3");
-//		List<Integer> list1 = Arrays.asList(-1,0,1,2,3);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=3--1");
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	
-//	@Test
-//	//Spec 6: Hyphens cannot be used as a suffix. ​3-​ , for instance, 
-//	//is invalid and an empty list should be returned.
-//	public void suffix_test() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1-3-");
-//		List<Integer> list1 = Arrays.asList();
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=3--1-");
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	
-//	// Empty list is returned in the these invalid cases of the integer list
-//	// invalid cases result in empty list being returned by the function
-//	@Test
-//	public void continuous_hyphens() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=1-2-3");
-//		List<Integer> list1 = Arrays.asList(); // Empty list
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
+	
+	@Test // Checking the range (-) operator with negative and positive numbers
+	public void check_range_negative_numbers_test_2() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1-3");
+		List<Integer> list1 = Arrays.asList(-1,0,1,2,3);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=3--1");
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+	
+	@Test
+	//Spec 6: Hyphens cannot be used as a suffix. ​3-​ , for instance, 
+	//is invalid and an empty list should be returned.
+	public void suffix_test() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1-3-");
+		List<Integer> list1 = Arrays.asList();
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=3--1-");
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+}
+	
+	// Empty list is returned in the these invalid cases of the integer list
+	// invalid cases result in empty list being returned by the function
+	@Test
+	public void continuous_hyphens() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1-2-3");
+		List<Integer> list1 = Arrays.asList(); // Empty list
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
 //	@Test
 //	public void invalid_character_in_range() {
 //		parser.add("output1", "o1", Parser.STRING);

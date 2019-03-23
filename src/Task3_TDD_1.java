@@ -105,35 +105,35 @@ public class Task3_TDD_1 {
 		result = parser.getIntegerList("o1");
 		assertEquals(list1, result);
 	}
-//	
-//	/*Spec 5: Include the range with negative numbers*/
-//	@Test // Checking the range (-) operator with negative numbers
-//	public void check_range_negative_numbers_test_1() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1--3");
-//		List<Integer> list1 = Arrays.asList(-3,-2,-1);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-3--1");
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	
-//	@Test // Checking the range (-) operator with negative and positive numbers
-//	public void check_range_negative_numbers_test_2() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1-3");
-//		List<Integer> list1 = Arrays.asList(-1,0,1,2,3);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=3--1");
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
+	
+	/*Spec 5: Include the range with negative numbers*/
+	@Test // Checking the range (-) operator with negative numbers
+	public void check_range_negative_numbers_test_1() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1--3");
+		List<Integer> list1 = Arrays.asList(-3,-2,-1);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-3--1");
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+	
+	@Test // Checking the range (-) operator with negative and positive numbers
+	public void check_range_negative_numbers_test_2() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1-3");
+		List<Integer> list1 = Arrays.asList(-1,0,1,2,3);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=3--1");
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
 //	
 //	@Test
 //	//Spec 6: Hyphens cannot be used as a suffix. ​3-​ , for instance, 
