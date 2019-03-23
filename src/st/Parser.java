@@ -5,6 +5,8 @@ import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Parser {
 	public static final int INTEGER = 1;
@@ -12,48 +14,65 @@ public class Parser {
 	public static final int STRING = 3;
 	public static final int CHAR = 4;
 
-	
 	private OptionMap optionMap;
-	
+
 	public Parser() {
 		optionMap = new OptionMap();
 	}
-	
+
 	public void add(String option_name, String shortcut, int value_type) {
 		optionMap.store(option_name, shortcut, value_type);
 	}
-	
+
 	public void add(String option_name, int value_type) {
 		optionMap.store(option_name, "", value_type);
 	}
+
 	public List<Integer> getIntegerList(String option) {
 		List<Integer> result = new ArrayList<>();
-		
+
 		String value = getString(option);
-		
-		
-		if(value=="") {
-			return result ;
+
+		if (value == "") {
+			return result;
 		}
-		
-		String[] array = value.split("[^\\d -]"); //split string by non-digit except -
-		
-		for(int i = 0; i< array.length; i++) {
-			if(array[i].equals("-")) {
-					System.out.println("stop");
-					
-				
+	
+		String clean = value.replaceAll("[^\\d-]", " " );
+		String[] array = clean.split(" "); // split string by non-digit except -
+		System.out.print("original array length : " + array.length);
+
+		for (int i = 0; i < array.length; i++) {
+			if (array[i].contains("-")) {
+				System.out.print("run here");
+				char[] charArray = array[i].toCharArray();
+				System.out.print("charArray length =" + charArray.length);
+				int low = Character.getNumericValue(charArray[0]); // 1
+				int high = Character.getNumericValue(charArray[2]);// 3
+
+				if (low < high) {
+					while (low <= high) { // 1<3
+						result.add(low); // add 1
+						low++;
+					}
+				}
+				else if (low>=high) { // 3-1
+					while(high<=low) {
+						result.add(high);
+						high++;
+					}
+				}
+
 			}
-				System.out.println(array[i]);
+
+			else {
 				int a = Integer.parseInt(array[i]);
 				result.add(a);
-				
+
+			}
+
 		}
 		return result;
-	
-}
-		
-		
+	}
 
 	public int getInteger(String option) {
 		String value = getString(option);
@@ -64,13 +83,13 @@ public class Parser {
 			try {
 				result = Integer.parseInt(value);
 			} catch (Exception e) {
-		        try {
-		            new BigInteger(value);
-		        } catch (Exception e1) {
-		            result = 0;
-		        }
-		        result = 0;
-		    }
+				try {
+					new BigInteger(value);
+				} catch (Exception e1) {
+					result = 0;
+				}
+				result = 0;
+			}
 			break;
 		case BOOLEAN:
 			if (getBoolean(option) == false) {
@@ -80,25 +99,26 @@ public class Parser {
 			}
 			break;
 		case STRING:
-		    int power = 1;
-		    result = 0;
-		    char c;
-		    for (int i = value.length() - 1; i >= 0; --i){
-		        c = value.charAt(i);
-		        if (!Character.isDigit(c)) return 0;
-		        result = result + power * (c - '0');
-		        power *= 10;
-		    }
-		    break;
+			int power = 1;
+			result = 0;
+			char c;
+			for (int i = value.length() - 1; i >= 0; --i) {
+				c = value.charAt(i);
+				if (!Character.isDigit(c))
+					return 0;
+				result = result + power * (c - '0');
+				power *= 10;
+			}
+			break;
 		case CHAR:
-			result = (int)getChar(option);
+			result = (int) getChar(option);
 			break;
 		default:
 			result = 0;
 		}
 		return result;
 	}
-	
+
 	public boolean getBoolean(String option) {
 		String value = getString(option);
 		boolean result;
@@ -109,12 +129,12 @@ public class Parser {
 		}
 		return result;
 	}
-	
+
 	public String getString(String option) {
 		String result = optionMap.getValue(option);
 		return result;
 	}
-	
+
 	public char getChar(String option) {
 		String value = getString(option);
 		char result;
@@ -125,7 +145,7 @@ public class Parser {
 		}
 		return result;
 	}
-	
+
 	public int parse(String command_line_options) {
 		if (command_line_options == null) {
 			return -1;
@@ -134,7 +154,7 @@ public class Parser {
 		if (length == 0) {
 			return -2;
 		}
-		
+
 		int char_index = 0;
 		while (char_index < length) {
 			char current_char = command_line_options.charAt(char_index);
@@ -146,7 +166,7 @@ public class Parser {
 				}
 				char_index++;
 			}
-			
+
 			boolean isShortcut = true;
 			String option_name = "";
 			String option_value = "";
@@ -161,7 +181,7 @@ public class Parser {
 				return -3;
 			}
 			current_char = command_line_options.charAt(char_index);
-			
+
 			while (char_index < length) {
 				current_char = command_line_options.charAt(char_index);
 				if (Character.isLetterOrDigit(current_char) || current_char == '_') {
@@ -171,11 +191,11 @@ public class Parser {
 					break;
 				}
 			}
-			
+
 			boolean hasSpace = false;
 			if (current_char == ' ') {
 				hasSpace = true;
-				while (char_index < length) {				
+				while (char_index < length) {
 					current_char = command_line_options.charAt(char_index);
 					if (current_char != ' ') {
 						break;
@@ -188,7 +208,7 @@ public class Parser {
 				char_index++;
 				current_char = command_line_options.charAt(char_index);
 			}
-			if ((current_char == '-'  && hasSpace==true ) || char_index == length) {
+			if ((current_char == '-' && hasSpace == true) || char_index == length) {
 				if (getType(option_name) == BOOLEAN) {
 					option_value = "true";
 					if (isShortcut) {
@@ -217,7 +237,7 @@ public class Parser {
 					}
 				}
 			}
-			
+
 			if (isShortcut) {
 				optionMap.setValueWithOptioShortcut(option_name, option_value);
 			} else {
@@ -227,16 +247,15 @@ public class Parser {
 		}
 		return 0;
 	}
-	
+
 	private int getType(String option) {
 		int type = optionMap.getType(option);
 		return type;
 	}
-	
+
 	@Override
 	public String toString() {
 		return optionMap.toString();
 	}
 
 }
-
