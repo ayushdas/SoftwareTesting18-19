@@ -179,7 +179,7 @@ dots, spaces etc */
 	}
 	// Checking integer list with a multiple combination of valid 
 	@Test // repeated bound should result in repeated numbers
-	public void reapeated_bound() {
+	public void repeated_bound() {
 		parser.add("output1", "o1", Parser.STRING);
 		parser.parse("-o1=1-2 2-3");
 		List<Integer> list1 = Arrays.asList(1,2,2,3);
@@ -220,13 +220,13 @@ dots, spaces etc */
 	//while being used as separator
 	public void double_quote_sperator_test() {
 		parser.add("output1", "o1", Parser.STRING);
-		parser.parse("-o1=\"1\"2\"3\"");
+		parser.parse("-o1=1\"2\"3\"");
 		List<Integer> list1 = Arrays.asList(1,2,3);
 		List<Integer> result = parser.getIntegerList("o1");
 		assertEquals(list1, result);
 		
 		parser.add("output1", "o1", Parser.STRING);
-		parser.parse("-o1='1'2'3'");
+		parser.parse("-o1=1'2'3'");
 		result = parser.getIntegerList("o1");
 		assertEquals(list1, result);
 	}

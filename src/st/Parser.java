@@ -291,7 +291,15 @@ public class Parser {
 						option_value = option_value + current_char;
 						char_index++;
 					} else {
-						break;
+						if((char_index+1 != length) &&
+								Character.isDigit(command_line_options.charAt(char_index+1))) {
+							option_value = option_value + current_char;
+							char_index++;
+						}
+						else {
+							break;
+						}
+						
 					}
 				}
 			}
