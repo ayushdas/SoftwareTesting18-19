@@ -169,82 +169,82 @@ dots, spaces etc */
 		List<Integer> result = parser.getIntegerList("o1");
 		assertEquals(list1, result);
 	}
-//	@Test
-//	public void invalid_character_in_range_2() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1{--5");
-//		List<Integer> list1 = Arrays.asList(); // Empty list
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	// Checking integer list with a multiple combination of valid 
-//	@Test // repeated bound should result in repeated numbers
-//	public void reapeated_bound() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=1-2 2-3");
-//		List<Integer> list1 = Arrays.asList(1,2,2,3);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=1-2;3-2");
-//		list1 = Arrays.asList(1,2,2,3);
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	
-//	@Test // repeated bound should result in repeated numbers some different cases
-//	public void reapeated_bound_with_negative_numbers() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1-2 2-3");
-//		List<Integer> list1 = Arrays.asList(-1,0,1,2,2,3);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=1-2;3--2");
-//		list1 = Arrays.asList(-2,-1,0,1,1,2,2,3);
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	@Test // Long range test
-//	public void long_range_test() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=-1-2 3-5");
-//		List<Integer> list1 = Arrays.asList(-1,0,1,2,3,4,5);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//	
-//	@Test // Double & Single quotes should not be an issue 
-//	//while being used as separator
-//	public void double_quote_sperator_test() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=\"1\"2\"3\"");
-//		List<Integer> list1 = Arrays.asList(1,2,3);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1='1'2'3'");
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}
-//		
-//	@Test // Splitting parse across several line should still generate the same result 
-//	public void split_parse() {
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=1,2,3,4,5");
-//		List<Integer> list1 = Arrays.asList(1,2,3,4,5);
-//		List<Integer> result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//		// Only the most recent value must lie in the option
-//		parser.add("output1", "o1", Parser.STRING);
-//		parser.parse("-o1=1,2,3");
-//		parser.parse("-o1=4,5");
-//		list1 = Arrays.asList(4,5);
-//		result = parser.getIntegerList("o1");
-//		assertEquals(list1, result);
-//	}	
+	@Test
+	public void invalid_character_in_range_2() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1{--5");
+		List<Integer> list1 = Arrays.asList(); // Empty list
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+	// Checking integer list with a multiple combination of valid 
+	@Test // repeated bound should result in repeated numbers
+	public void reapeated_bound() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1-2 2-3");
+		List<Integer> list1 = Arrays.asList(1,2,2,3);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1-2;3-2");
+		list1 = Arrays.asList(1,2,2,3);
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+	
+	@Test // repeated bound should result in repeated numbers some different cases
+	public void reapeated_bound_with_negative_numbers() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1-2 2-3");
+		List<Integer> list1 = Arrays.asList(-1,0,1,2,2,3);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1-2;3--2");
+		list1 = Arrays.asList(-2,-1,0,1,1,2,2,3);
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+	@Test // Long range test
+	public void long_range_test() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=-1-2 3-5");
+		List<Integer> list1 = Arrays.asList(-1,0,1,2,3,4,5);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+	
+	@Test // Double & Single quotes should not be an issue 
+	//while being used as separator
+	public void double_quote_sperator_test() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=\"1\"2\"3\"");
+		List<Integer> list1 = Arrays.asList(1,2,3);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1='1'2'3'");
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}
+		
+	@Test // Splitting parse across several line should still generate the same result 
+	public void split_parse() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1,2,3,4,5");
+		List<Integer> list1 = Arrays.asList(1,2,3,4,5);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+		// Only the most recent value must lie in the option
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1,2,3");
+		parser.parse("-o1=4,5");
+		list1 = Arrays.asList(4,5);
+		result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
+	}	
 
 }

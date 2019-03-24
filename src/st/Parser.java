@@ -5,6 +5,7 @@ import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -16,7 +17,8 @@ public class Parser {
 	public static final int CHAR = 4;
 
 	private OptionMap optionMap;
-
+	private Comparator<Integer> intComparator;
+	
 	public Parser() {
 		optionMap = new OptionMap();
 	}
@@ -33,24 +35,38 @@ public class Parser {
 		List<Integer> result = new ArrayList<>();
 
 		String value = getString(option);
-
+		System.out.println("value: " + value);
+		
 		if (value == "") {
 			return result;
 		}
 
 		String clean = value.replaceAll("[^\\d-]", " ");
+		System.out.println("clean: " +clean);
+		
 		String[] array = clean.split(" "); // split string by non-digit except -
+		//1-2 2-3
 		
+		System.out.println("array length: " + array.length);
 		
-		for (int i = 0; i < array.length; i++) {
+		int i = 0;
+		while( i< array.length) {
+			System.out.println("bundle : " + array[i]);
+			
 			if (array[i].contains("-")) {
 				if(array[i].charAt(array[i].length()-1) == '-') {
+					return Collections.emptyList();
+				}
+				if(array[i].charAt(0)=='-' && array[i].charAt(1)=='-') {
 					return Collections.emptyList();
 				}
 			 //3--1
 				char []charArray = array[i].toCharArray();
 				int j = 0;
+				System.out.println("char at 0 "+ charArray[0]);
 				while (j < charArray.length-2) {
+					
+					
 					int temp = Character.getNumericValue(charArray[j]); //temp = 3
 					System.out.println("temp: " + temp);
 					
@@ -107,8 +123,12 @@ public class Parser {
 				result.add(a);
 
 			}
+			System.out.println("i: " + i);
+			i++;
 	
 		}
+		
+		result.sort(intComparator);
 		return result;
 	}
 
