@@ -1,14 +1,10 @@
 package st;
 
 import java.math.BigInteger;
-import java.time.temporal.ValueRange;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Parser {
 	public static final int INTEGER = 1;
@@ -35,24 +31,17 @@ public class Parser {
 		List<Integer> result = new ArrayList<>();
 
 		String value = getString(option);
-		System.out.println("value: " + value);
-		
+	
 		if (value == "") {
 			return result;
 		}
 
 		String clean = value.replaceAll("[^\\d-]", " ");
-		System.out.println("clean: " +clean);
-		
+	
 		String[] array = clean.split(" "); // split string by non-digit except -
-		//1-2 2-3
-		
-		System.out.println("array length: " + array.length);
 		
 		int i = 0;
 		while( i< array.length) {
-			System.out.println("bundle : " + array[i]);
-			
 			if (array[i].contains("-")) {
 				if(array[i].charAt(array[i].length()-1) == '-') {
 					return Collections.emptyList();
@@ -60,23 +49,15 @@ public class Parser {
 				if(array[i].charAt(0)=='-' && array[i].charAt(1)=='-') {
 					return Collections.emptyList();
 				}
-			 //3--1
 				char []charArray = array[i].toCharArray();
 				int j = 0;
-				System.out.println("char at 0 "+ charArray[0]);
+		
 				while (j < charArray.length-2) {
 					
-					
-					int temp = Character.getNumericValue(charArray[j]); //temp = 3
-					System.out.println("temp: " + temp);
-					
-					int temp2 = Character.getNumericValue(charArray[j + 2]); //temp2 = -1
-					System.out.println("temp2: " + temp2);
-					
+					int temp = Character.getNumericValue(charArray[j]); 
+					int temp2 = Character.getNumericValue(charArray[j + 2]); 
 					if (charArray[j] == '-' && j == 0 && Character.isDigit(charArray[j + 1])) {
 						temp = -(Character.getNumericValue(charArray[j + 1]));
-						System.out.println("temp in loop :" + temp);
-						
 						j = j + 2;
 					}
 					if ((charArray[j] == '-' && charArray[j + 1] == '-')) {
@@ -86,14 +67,12 @@ public class Parser {
 						temp2= (Character.getNumericValue(charArray[j+1]));
 					}
 					if ((charArray[j+1] == '-') && (charArray[j+2] == '-')) {
-						System.out.println("j: " + j);
 						temp2= -(Character.getNumericValue(charArray[j+3]));
-						System.out.println("temp2 should be generated here: " + temp2);
+					
 					}
 					if((j>1) && (j<charArray.length-1) &&(Character.isDigit(charArray[j])) && 
 							(Character.isDigit(charArray[j+2])) && (Character.isDigit(charArray[j-2])) && 
 								(charArray[j+1]=='-') && (charArray[j-1]=='-')) {
-						System.out.println("run here");
 						return Collections.emptyList();
 					}
 					int low = temp;
@@ -101,19 +80,17 @@ public class Parser {
 
 					if (low < high) {
 						while (low <= high) { // 
-							result.add(low); // add 1,2,3
-							System.out.println("low should be 1,2 :" + low);
+							result.add(low);
 							low++;
 						}
 						j = j + 2;
-						System.out.println("j should be 2 " + j );
 					} else if (low >= high) { 
 						while (high <= low) {
 							result.add(high);
 							high++;
 
 						}
-						j = j + 2; //j=2
+						j = j + 2; 
 					}
 					
 				}
@@ -123,7 +100,6 @@ public class Parser {
 				result.add(a);
 
 			}
-			System.out.println("i: " + i);
 			i++;
 	
 		}
