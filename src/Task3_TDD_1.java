@@ -245,6 +245,15 @@ dots, spaces etc */
 		list1 = Arrays.asList(4,5);
 		result = parser.getIntegerList("o1");
 		assertEquals(list1, result);
+	}
+	
+	@Test // Multiple separator test 2
+	public void multiple_seperator_test_2() {
+		parser.add("output1", "o1", Parser.STRING);
+		parser.parse("-o1=1,2 3 4,5");
+		List<Integer> list1 = Arrays.asList(1,2,3,4,5);
+		List<Integer> result = parser.getIntegerList("o1");
+		assertEquals(list1, result);
 	}	
 
 }
